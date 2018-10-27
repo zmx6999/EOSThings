@@ -6,7 +6,7 @@ create_wallet() {
     password=`cleos wallet create --to-console -n $1 | sed '{1,3d;s/"//g}'`
     echo $password > ${base}/artifacts/${1}/password
     cleos wallet import --private-key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3 -n $1
-    if [ $? -ne 0 ]; then echo "failed to import"; exit 1; fi
+    if [ $? -ne 0 ]; exit 1; fi
     cleos wallet private_keys -n $1 --password $password
 }
 if [ $# -eq 0 ]; then echo "usage:<wallet name>"; exit 1; fi
